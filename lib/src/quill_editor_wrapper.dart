@@ -183,7 +183,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
   bool _editorLoaded = false;
   @override
   initState() {
-    _ignoreAllGestures = wwidget.ignoreAllGestures;
+    _ignoreAllGestures = widget.ignoreAllGestures;
     _loadScripts = rootBundle.loadString(
         'packages/quill_html_editor_v2/assets/scripts/quill_2.0.0_4_min.js');
     _fontFamily = widget.textStyle?.fontFamily ?? 'Roboto';
