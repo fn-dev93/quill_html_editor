@@ -44,6 +44,7 @@ class QuillHtmlEditor extends StatefulWidget {
     this.inputAction = InputAction.newline,
     this.autoFocus = false,
     this.ignoreAllGestures = false,
+    this.key,
     this.textStyle = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 20.0,
@@ -156,6 +157,8 @@ class QuillHtmlEditor extends StatefulWidget {
 
   final bool ignoreAllGestures;
 
+  final Key? key;
+
   @override
   QuillHtmlEditorState createState() => QuillHtmlEditorState();
 }
@@ -211,6 +214,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+        key: widget.key,
         future: _loadScripts,
         builder: (context, snap) {
           if (snap.hasData) {
