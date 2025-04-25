@@ -172,6 +172,8 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
   /// When it is set to false, the user cannot edit or type in the editor
   bool isEnabled = true;
 
+  bool _ignoreAllGestures = false;
+
   late double _currentHeight;
   bool _hasFocus = false;
   String _quillJsScript = '';
@@ -181,6 +183,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
   bool _editorLoaded = false;
   @override
   initState() {
+    _ignoreAllGestures = wwidget.ignoreAllGestures;
     _loadScripts = rootBundle.loadString(
         'packages/quill_html_editor_v2/assets/scripts/quill_2.0.0_4_min.js');
     _fontFamily = widget.textStyle?.fontFamily ?? 'Roboto';
@@ -189,6 +192,14 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
     _currentHeight = widget.minHeight;
 
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    if(widget.ignoreAllGestures != oldWidget.ignoreAllGestures){
+      setState(()=> _ignoreAllGestures = widget.ignoreAllGestures);
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -241,7 +252,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
           onPageStarted: (s) {
             _editorLoaded = false;
           },
-          ignoreAllGestures: widget.ignoreAllGestures,
+          ignoreAllGestures: _ignoreAllGestures,
           width: width,
           onWebViewCreated: (controller) => _webviewController = controller,
           onPageFinished: (src) {
