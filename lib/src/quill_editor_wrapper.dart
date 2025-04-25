@@ -43,6 +43,7 @@ class QuillHtmlEditor extends StatefulWidget {
     this.loadingBuilder,
     this.inputAction = InputAction.newline,
     this.autoFocus = false,
+    this.ignoreAllGestures = false,
     this.textStyle = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 20.0,
@@ -153,6 +154,8 @@ class QuillHtmlEditor extends StatefulWidget {
   /// **Note** due to limitations of flutter webview at the moment, focus doesn't launch the keyboard in mobile, however, it will set the cursor at the end on focus.
   final bool? autoFocus;
 
+  final bool ignoreAllGestures;
+
   @override
   QuillHtmlEditorState createState() => QuillHtmlEditorState();
 }
@@ -238,7 +241,7 @@ class QuillHtmlEditorState extends State<QuillHtmlEditor> {
           onPageStarted: (s) {
             _editorLoaded = false;
           },
-          ignoreAllGestures: false,
+          ignoreAllGestures: widget.ignoreAllGestures,
           width: width,
           onWebViewCreated: (controller) => _webviewController = controller,
           onPageFinished: (src) {
